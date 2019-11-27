@@ -1,0 +1,112 @@
+{
+  "$type": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "description": "Bot Framework Composer のサンプルです",
+    "name": "bot-framework-composer-sample"
+  },
+  "autoEndDialog": "true",
+  "defaultResultProperty": "dialog.result",
+  "recognizer": {
+    "$type": "Microsoft.RegexRecognizer",
+    "intents": [
+      {
+        "intent": "Weather",
+        "pattern": "(今の天気|天気)"
+      },
+      {
+        "intent": "Help",
+        "pattern": "([H|h]elp|ヘルプ)"
+      },
+      {
+        "intent": "Cancel",
+        "pattern": "([C|c]ancel|キャンセル)"
+      }
+    ]
+  },
+  "triggers": [
+    {
+      "$type": "Microsoft.OnConversationUpdateActivity",
+      "$designer": {
+        "id": "376720",
+        "name": "Welcome"
+      },
+      "condition": "toLower(turn.Activity.membersAdded[0].name) != 'bot'",
+      "actions": [
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "id": "345228",
+            "name": "Text input"
+          },
+          "prompt": "[bfdprompt-345228]",
+          "maxTurnCount": 3,
+          "property": "user.name",
+          "alwaysPrompt": false,
+          "allowInterruptions": "false",
+          "outputFormat": "trim"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "508228",
+            "name": "Send a response"
+          },
+          "activity": "[bfdactivity-508228]"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "315578"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.BeginDialog",
+          "$designer": {
+            "id": "245890",
+            "name": "Begin a new dialog"
+          },
+          "dialog": "getCurrentWeather"
+        }
+      ],
+      "intent": "Weather"
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "334377"
+      },
+      "intent": "Help",
+      "actions": [
+        {
+          "$type": "Microsoft.BeginDialog",
+          "$designer": {
+            "id": "286403",
+            "name": "Begin a new dialog"
+          },
+          "dialog": "help"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "303272"
+      },
+      "intent": "Cancel",
+      "actions": [
+        {
+          "$type": "Microsoft.BeginDialog",
+          "$designer": {
+            "id": "703955",
+            "name": "Begin a new dialog"
+          },
+          "dialog": "cancel"
+        }
+      ]
+    }
+  ],
+  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema",
+  "generator": "common.lg"
+}

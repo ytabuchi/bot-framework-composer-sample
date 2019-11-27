@@ -1,0 +1,36 @@
+
+# Greeting(user)
+- {user.name} さん、こんにちは。現在の天気をお知らせします。"今の天気" と入力してください。
+- {user.name} 天気入力シロ
+
+# bfdactivity-840066
+- 今の天気情報を調べます
+# bfdprompt-945205
+[Activity
+    Text = 郵便番号を入力してください。
+    SuggestedActions = help | cancel
+]
+# bfdunrecognizedPrompt-945205
+- 入力値 {this.value} が判別できませんでした。郵便番号を入力してください。
+# bfdinvalidPrompt-945205
+- 郵便番号は3桁-4桁（半角）で入力してください。
+# bfdactivity-861919
+[ThumbnailCard
+    title = @{dialog.weather.name} の天気
+    text = 天気は {dialog.weather.weather[0].description}、@{dialog.weather.main.temp}&deg;C です。
+    image = https://openweathermap.org/img/wn/{dialog.weather.weather[0].icon}@2x.png
+]
+# bfdactivity-123025
+- エラーが発生しました：{dialog.api_response.content.message}
+# bfdactivity-621072
+- 郵便番号を ###-#### の形で入力してください。
+# bfdactivity-075050
+- キャンセルしました
+
+
+# bfdactivity-508228
+- [Greeting(user)]
+
+
+# bfdprompt-345228
+- お天気 Bot です。最初に名前を入力してください。

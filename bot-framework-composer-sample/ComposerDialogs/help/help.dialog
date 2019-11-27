@@ -1,0 +1,28 @@
+{
+  "$type": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "name": "help",
+    "description": "ヘルプを表示するダイアログ",
+    "id": "125088"
+  },
+  "autoEndDialog": "true",
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$type": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "621072",
+            "name": "Send a response"
+          },
+          "activity": "[bfdactivity-621072]"
+        }
+      ]
+    }
+  ]
+}

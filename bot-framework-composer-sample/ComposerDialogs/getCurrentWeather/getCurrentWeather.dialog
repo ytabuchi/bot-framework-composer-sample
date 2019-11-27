@@ -1,0 +1,102 @@
+{
+  "$type": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "name": "getCurrentWeather",
+    "description": "現在の天気を取得します。",
+    "id": "627548"
+  },
+  "autoEndDialog": "true",
+  "defaultResultProperty": "dialog.result",
+  "recognizer": {
+    "$type": "Microsoft.RegexRecognizer"
+  },
+  "triggers": [
+    {
+      "$type": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "840066",
+            "name": "Send a response"
+          },
+          "activity": "[bfdactivity-840066]"
+        },
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "id": "945205",
+            "name": "Text input"
+          },
+          "prompt": "[bfdprompt-945205]",
+          "unrecognizedPrompt": "[bfdunrecognizedPrompt-945205]",
+          "invalidPrompt": "[bfdinvalidPrompt-945205]",
+          "maxTurnCount": 3,
+          "property": "user.zipcode",
+          "alwaysPrompt": true,
+          "allowInterruptions": "true",
+          "outputFormat": "trim"
+        },
+        {
+          "$type": "Microsoft.HttpRequest",
+          "$designer": {
+            "id": "284516",
+            "name": "Send an HTTP request"
+          },
+          "method": "GET",
+          "url": " http://api.openweathermap.org/data/2.5/weather?zip={user.zipcode},jp&units=metric&lang=ja&APPID=faea356fd4ddaf18f9950b22a437c6c3",
+          "responseType": "Json",
+          "resultProperty": "dialog.api_response"
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "330301",
+            "name": "Branch: if/else"
+          },
+          "condition": "dialog.api_response.statusCode==200",
+          "actions": [
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "454260",
+                "name": "Set a property"
+              },
+              "property": "dialog.weather",
+              "value": "dialog.api_response.content"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "861919",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-861919]"
+            }
+          ],
+          "elseActions": [
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "123025",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-123025]"
+            },
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "315519",
+                "name": "Delete a property"
+              },
+              "property": "user.zipcode"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
