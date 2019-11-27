@@ -17,7 +17,7 @@
 # bfdactivity-861919
 [ThumbnailCard
     title = @{dialog.weather.name} の天気
-    text = 天気は {dialog.weather.weather[0].description}、@{dialog.weather.main.temp}&deg;C です。
+    text = 天気は{dialog.weather.weather[0].description}、@{dialog.weather.main.temp}℃です。
     image = https://openweathermap.org/img/wn/{dialog.weather.weather[0].icon}@2x.png
 ]
 # bfdactivity-123025
